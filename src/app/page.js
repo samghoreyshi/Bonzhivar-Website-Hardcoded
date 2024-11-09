@@ -3,10 +3,10 @@ import Link from "next/link";
 import Modal from "../components/modal";
 import ImageCarousel from "../components/ImageCarousel-Hero";
 
-import AboutusFacade from "/public/Hero-Images/aboutus-facade-Sepia.webp";
-import Recon from "/public/Hero-Images/right-Cover-2.webp";
-import Model from "/public/Hero-Images/right-Cover-3.webp";
-import Light from "/public/Hero-Images/right-Cover-4.webp";
+import AboutusFacade from "/public/Hero-images/aboutus-facade-Sepia.webp";
+import Recon from "/public/Hero-images/right-Cover-2.webp";
+import Model from "/public/Hero-images/right-Cover-3.webp";
+import Light from "/public/Hero-images/right-Cover-4.webp";
 import Undercn from "/public//Undercn/1.webp";
 
 const slides = [
