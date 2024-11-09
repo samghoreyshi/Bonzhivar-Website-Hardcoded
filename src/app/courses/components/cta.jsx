@@ -29,8 +29,8 @@ function CTA() {
           </svg>
         </Link>
         <h2 className="font-IranYekan font-normal text-white text-sm sm:text-2xl text-right direction-rtl relative z-10">
-          تخفیف ثبت‌نام گروهی: "به همراه دوستان خود ثبت‌نام کنید و از ۱۵٪ تخفیف
-          گروهی بهره‌مند شوید!"
+          تخفیف ثبت‌نام گروهی: به همراه دوستان خود ثبت‌نام کنید و از ۱۵٪ تخفیف
+          گروهی بهره‌مند شوید!
         </h2>
       </div>
     </>
