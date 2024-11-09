@@ -3,7 +3,11 @@ import Link from "next/link";
 import Modal from "../components/modal";
 import ImageCarousel from "../components/ImageCarousel-Hero";
 
-import { AboutusFacade, Recon, Model, Light, Undercn } from "/public/imageImports"; // Adjusted import
+import AboutusFacade from "/public/Hero-Images/Aboutus-facade-Sepia.webp";
+import Recon from "/public/Hero-Images/Right-Cover-2.webp";
+import Model from "/public/Hero-Images/Right-Cover-3.webp";
+import Light from "/public/Hero-Images/Right-Cover-4.webp";
+import Undercn from "/public//Undercn/1.webp";
 
 const slides = [
   {

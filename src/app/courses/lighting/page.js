@@ -5,7 +5,7 @@ import Accordion from "../components/accordion";
 import CourseCard from "../components/coursecard";
 import CTA from "../components/cta";
 import SlidingCard from "../components/slideup";
-import LightBanner from "../../../../public/Lighting/banner.webp"
+import LightBanner from "/public/Lighting/banner.webp"
 
 const Lighting = () => {
 
