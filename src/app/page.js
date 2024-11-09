@@ -3,7 +3,7 @@ import Link from "next/link";
 import Modal from "../components/modal";
 import ImageCarousel from "../components/ImageCarousel-Hero";
 
-import { AboutusFacade, Recon, Model, Light, Undercn } from "../../public/imageImports"; // Adjusted import
+import { AboutusFacade, Recon, Model, Light, Undercn } from "/public/imageImports"; // Adjusted import
 
 const slides = [
   {
