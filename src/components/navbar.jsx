@@ -16,6 +16,9 @@ function Navbar() {
   const aboutLink ="/about";
   const undercnLink = "/underconstruction";
   const interiorArc = "/courses/interior-architecture"
+  const etiquette = "/courses/Etiquette"
+  const interiorDesign = "/courses/interior-design"
+  const colorApp = "/courses/color-app"
 
 
   const [isOpen, setIsOpen] = useState(false);
@@ -172,13 +175,13 @@ function Navbar() {
             <span onClick={toggleDropdown}>دوره های آموزشی</span>
             <div
               id="dropdown"
-              className={`absolute cursor-default left-0 top-11 -translate-x-1/2 w-[850px] rounded-tr-none rounded-tl-none rounded-3xl h-64 bg-[url('/Backgrounds/Drop-grid.webp')] bg-cover bg-center overflow-hidden  shadow-lg p-4 transition-all duration-300 ease-in-out ${
+              className={`absolute cursor-default left-0 top-11 -translate-x-1/2 w-[1150px] rounded-tr-none rounded-tl-none rounded-3xl h-64 bg-[url('/Backgrounds/Drop-grid.webp')] bg-cover bg-center overflow-hidden  shadow-lg p-4 transition-all duration-300 ease-in-out ${
                 isOpen
                   ? "opacity-100 max-h-64 z-[100] visible"
                   : "opacity-0 max-h-0 invisible overflow-hidden"
               }`}
             >
-              <div className="flex h-full w-fullitems-center justify-between gap-2 ">
+              <div className="flex h-full w-full items-center justify-between gap-2 ">
                 <div className="flex flex-col w-full h-full bg-[url('/Backgrounds/Drop-cover.webp')] bg-cover bg-center rounded-md"></div>
                 <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
                   <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
@@ -215,6 +218,34 @@ function Navbar() {
                 </div>
                 <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
                   <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
+                    کارگاه‌های توسعه فردی
+                  </span>
+                  <ul className="text-accent text-right text-xs leading-loose " onClick={closeDropdown}>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={etiquette}>آداب معاشرت</Link>
+                    </li>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={undercnLink}>مدیریت زمان و برنامه‌ریزی</Link>
+                    </li>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={undercnLink}>مهارت‌های ارتباطی و مشتری‌مداری</Link>
+                    </li>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={undercnLink}>تفکر خلاق و حل مسئله</Link>
+                    </li>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={undercnLink}>مدیریت استرس و تعادل کار و زندگی </Link>
+                    </li>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={undercnLink}>رهبری و مدیریت پروژه</Link>
+                    </li>
+                    <li className="hover:text-black transition-all duration-300">
+                      <Link href={undercnLink}>پرسونال برندینگ یا برند شخصی</Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
+                  <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
                     دوره های آموزشی معماری داخلی
                   </span>
                   <ul className="text-accent text-right text-xs leading-loose " onClick={closeDropdown}>
@@ -231,10 +262,10 @@ function Navbar() {
                       <Link href={interiorArc}>دوره جامع معماری داخلی</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}> دوره جامع دکوراسیون داخلی</Link>
+                      <Link href={interiorDesign}> دوره جامع دکوراسیون داخلی</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>دوره جامع کاربرد رنگ</Link>
+                      <Link href={colorApp}>دوره جامع کاربرد رنگ</Link>
                     </li>
                   </ul>
                 </div>
