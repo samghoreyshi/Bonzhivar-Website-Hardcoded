@@ -1,25 +1,22 @@
 "use client";
 
-
 import React, { useState, useEffect, useRef } from "react";
-import  Link  from "next/link";
+import Link from "next/link";
 import SearchBox from "./searchbox";
 import { Underline } from "react-feather";
 
 function Navbar() {
-
   const homeLink = "/";
   const reconLink = "/courses/reconstruction";
   const modelingLink = "/courses/modeling";
   const lightLink = "/courses/lighting";
-  const contactLink ="/contact";
-  const aboutLink ="/about";
+  const contactLink = "/contact";
+  const aboutLink = "/about";
   const undercnLink = "/underconstruction";
-  const interiorArc = "/courses/interior-architecture"
-  const etiquette = "/courses/Etiquette"
-  const interiorDesign = "/courses/interior-design"
-  const colorApp = "/courses/color-app"
-
+  const interiorArc = "/courses/interior-architecture";
+  const etiquette = "/courses/Etiquette";
+  const interiorDesign = "/courses/interior-design";
+  const colorApp = "/courses/color-app";
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -81,7 +78,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 sm:px-20 z-20 font-IranYekan font-normal text-sm flex items-center justify-between bg-background sm:border-b gradient-border-bottom h-16 p-5 transition-all duration-300 ${
+      className={`sticky top-0 sm:px-5 z-50 font-IranYekan font-normal text-sm flex items-center justify-between bg-background sm:border-b gradient-border-bottom h-16 p-5 transition-all duration-300 ${
         isScrolled ? "" : ""
       }`}
     >
@@ -126,8 +123,9 @@ function Navbar() {
           )}
         </button>
       </div>
-      <div className="flex justify-start gap-5 items-center w-[600px] h-full">
+      <div className="flex justify-start gap-2 items-center w-[600px] h-full">
         <SearchBox id="searchbox" className="md:hidden lg:block" />
+        <Link href={undercnLink} className="bg-accent px-5 py-1 rounded-lg text-white hover:bg-background hover:border-accent hover:border hover:text-accent tansition-all duration-300 ease-in-out">ثبت نام</Link>
       </div>
 
       <ul className="text-textDark hidden md:flex fixed top-0 left-1/2 transform -translate-x-1/2  justify-center items-center gap-2 py-3 px-3 mt-2 ">
@@ -187,8 +185,10 @@ function Navbar() {
                   <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
                     دوره های آموزشی کافی‌شاپ
                   </span>
-                  <ul className="text-accent text-right text-xs leading-loose " onClick={closeDropdown}>
-
+                  <ul
+                    className="text-accent text-right text-xs leading-loose "
+                    onClick={closeDropdown}
+                  >
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={undercnLink}>دوره آموزشی بار سرد و گرم</Link>
                     </li>
@@ -201,18 +201,25 @@ function Navbar() {
                   <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
                     دوره های آموزشی کسب و کار
                   </span>
-                  <ul className="text-accent text-right text-xs leading-loose " onClick={closeDropdown}>
+                  <ul
+                    className="text-accent text-right text-xs leading-loose "
+                    onClick={closeDropdown}
+                  >
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={undercnLink}>دوره جامع دیجیتال مارکتینگ</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>دوره اصول و فنون ارتباطات و مذاکرات تجاری</Link>
+                      <Link href={undercnLink}>
+                        دوره اصول و فنون ارتباطات و مذاکرات تجاری
+                      </Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={undercnLink}>دوره حقوق کسب و کار</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>مدیریت مالی برای مدیران غیر مالی</Link>
+                      <Link href={undercnLink}>
+                        مدیریت مالی برای مدیران غیر مالی
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -220,7 +227,10 @@ function Navbar() {
                   <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
                     کارگاه‌های توسعه فردی
                   </span>
-                  <ul className="text-accent text-right text-xs leading-loose " onClick={closeDropdown}>
+                  <ul
+                    className="text-accent text-right text-xs leading-loose "
+                    onClick={closeDropdown}
+                  >
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={etiquette}>آداب معاشرت</Link>
                     </li>
@@ -228,19 +238,25 @@ function Navbar() {
                       <Link href={undercnLink}>مدیریت زمان و برنامه‌ریزی</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>مهارت‌های ارتباطی و مشتری‌مداری</Link>
+                      <Link href={undercnLink}>
+                        مهارت‌های ارتباطی و مشتری‌مداری
+                      </Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={undercnLink}>تفکر خلاق و حل مسئله</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>مدیریت استرس و تعادل کار و زندگی </Link>
+                      <Link href={undercnLink}>
+                        مدیریت استرس و تعادل کار و زندگی{" "}
+                      </Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={undercnLink}>رهبری و مدیریت پروژه</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>پرسونال برندینگ یا برند شخصی</Link>
+                      <Link href={undercnLink}>
+                        پرسونال برندینگ یا برند شخصی
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -248,7 +264,10 @@ function Navbar() {
                   <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
                     دوره های آموزشی معماری داخلی
                   </span>
-                  <ul className="text-accent text-right text-xs leading-loose " onClick={closeDropdown}>
+                  <ul
+                    className="text-accent text-right text-xs leading-loose "
+                    onClick={closeDropdown}
+                  >
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={reconLink}>دوره جامع بازسازی ساختمان </Link>
                     </li>
@@ -262,7 +281,10 @@ function Navbar() {
                       <Link href={interiorArc}>دوره جامع معماری داخلی</Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
-                      <Link href={interiorDesign}> دوره جامع دکوراسیون داخلی</Link>
+                      <Link href={interiorDesign}>
+                        {" "}
+                        دوره جامع دکوراسیون داخلی
+                      </Link>
                     </li>
                     <li className="hover:text-black transition-all duration-300">
                       <Link href={colorApp}>دوره جامع کاربرد رنگ</Link>
@@ -297,7 +319,11 @@ function Navbar() {
       >
         <ul className="flex flex-col items-center py-4">
           <li className="w-full">
-            <Link href={homeLink} className="block px-5 py-2 text-right" onClick={closeMobileMenu}>
+            <Link
+              href={homeLink}
+              className="block px-5 py-2 text-right"
+              onClick={closeMobileMenu}
+            >
               خانه
             </Link>
           </li>
@@ -326,27 +352,43 @@ function Navbar() {
             >
               <ul className="text-accent text-right px-5 py-2">
                 <li className="py-1 font-IranYekan font-bold text-lg ">
-                  <span onClick={closeMobileMenu}>دوره های آموزشی معماری داخلی</span>
+                  <span onClick={closeMobileMenu}>
+                    دوره های آموزشی معماری داخلی
+                  </span>
                 </li>
                 <li className="py-1 font-IranYekan font-normal ">
-                  <Link onClick={closeMobileMenu} href={reconLink}>دوره جامع بازسازی ساختمان </Link>
+                  <Link onClick={closeMobileMenu} href={reconLink}>
+                    دوره جامع بازسازی ساختمان{" "}
+                  </Link>
                 </li>
                 <li className="py-1 font-IranYekan font-normal">
-                  <Link onClick={closeMobileMenu} href={modelingLink}>مدلسازی و رندرینگ</Link>
+                  <Link onClick={closeMobileMenu} href={modelingLink}>
+                    مدلسازی و رندرینگ
+                  </Link>
                 </li>
                 <li className="py-1 font-IranYekan font-normal">
-                  <Link onClick={closeMobileMenu} href={lightLink}>دوره جامع نورپردازی</Link>
+                  <Link onClick={closeMobileMenu} href={lightLink}>
+                    دوره جامع نورپردازی
+                  </Link>
                 </li>
               </ul>
             </div>
           </li>
           <li className="w-full">
-            <Link href={aboutLink} className="block px-5 py-2 text-right" onClick={closeMobileMenu}>
+            <Link
+              href={aboutLink}
+              className="block px-5 py-2 text-right"
+              onClick={closeMobileMenu}
+            >
               درباره ما
             </Link>
           </li>
           <li className="w-full">
-            <Link href={contactLink} className="block px-5 py-2 text-right" onClick={closeMobileMenu}>
+            <Link
+              href={contactLink}
+              className="block px-5 py-2 text-right"
+              onClick={closeMobileMenu}
+            >
               تماس با ما
             </Link>
           </li>

@@ -1,222 +1,257 @@
+'use client';
 
+import { useState } from 'react';
 
-function Contact() {
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const response = await fetch('/api/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'خطایی رخ داد');
+      }
+
+      setSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const contactInfo = [
+    {
+      title: 'آدرس',
+      value: 'بن‌ژیوار، تهران، پاسداران، میدان هروی، جنب مرکز خرید گلستان، پلاک ٦٥',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      )
+    },
+    {
+      title: 'تلفن تماس',
+      value: '۰۲۱-۲۸۱۱۱۱۹٥',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+      )
+    },
+    {
+      title: 'ایمیل',
+      value: 'info@bonzhivar.com',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      )
+    }
+  ];
+
   return (
-    <>
-      <section className="bg-background">
-        <div className="lg:grid lg:h-full lg:grid-cols-12">
-          <section className=" sm:p-16 flex h-32 items-end lg:col-span-5 lg:h-full xl:col-span-6">
-            <img
-              alt=""
-              src="/Contact/1.webp"
-              className=" h-full w-full object-cover sm:rounded-3xl shadow-md"
-            />
-          </section>
+    <div dir="rtl" className="min-h-screen bg-background">
+      {/* Hero Section with Cover Image */}
+      <div className="relative h-[40vh] bg-accent/10">
+        <img
+          src="/Contact/1.webp"
+          alt="Contact Us Cover"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h1 className="text-5xl font-extrabold text-white font-IranYekan text-center drop-shadow-2xl">
+            با ما در ارتباط باشید
+          </h1>
+        </div>
+      </div>
 
-          <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-12 lg:py-12 xl:col-span-6">
-            <div className="w-full lg:w-full ">
-            <section className="">
-                <div className="container px-6 py-12 mx-auto">
-                  <div className="text-center">
-                    <h1 className="font-extrabold text-3xl font-IranYekan text-accent">
-                      راه‌های ارتباطی
-                    </h1>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-12 mt-10 md:grid-cols-2 lg:grid-cols-3">
-                    <div className="flex flex-col items-center justify-between text-center">
-                      <span className="p-3 text-accent rounded-full bg-accent/20">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                          />
-                        </svg>
-                      </span>
-
-                      <h2 className="mt-4 text-lg font-bold font-IranYekan text-accentDark">
-                        ایمیل
-                      </h2>
-                      <p className="mt-2 text-accent font-semibold">
-                        Info@bonzhivar.com
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col items-center justify-center text-center">
-                      <span className="p-3 text-accent rounded-full bg-accent/20">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                          />
-                        </svg>
-                      </span>
-
-                      <h2 className="mt-4 text-lg font-bold text-accentDark font-IranYekan">
-                        آدرس
-                      </h2>
-                      <p className="mt-2 text-accent font-IranYekan text-semibold">
-                        تهران، پاسداران، میدان هروی جنب پاساژ گلستان پلاک 65 مجتمع اموزشی بن‌ژیوار
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col items-center justify-between text-center">
-                      <span className="p-3 text-accent rounded-full bg-accent/20">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                          />
-                        </svg>
-                      </span>
-
-                      <h2 className="mt-4 text-lg font-bold text-accentDark font-IranYekan">
-                        تلفن تماس
-                      </h2>
-                      <p className="mt-2 text-accent font-IranYekan font-semibold">
-                      ۰۲۱ - ۲۸۱۱۱۱۹٥
-                      </p>
-                    </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10">
+        {/* Contact Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {contactInfo.map((info, index) => (
+            <div
+              key={index}
+              className="group relative overflow-hidden"
+            >
+              {/* Background Gradient */}
+              <div className="absolute inset-0 transition-all duration-500"></div>
+              
+              {/* Content */}
+              <div className="relative p-8 flex flex-col items-center text-center">
+                {/* Icon Container */}
+                <div className="mb-6 relative">
+                  {/* Icon Background */}
+                  <div className="absolute -inset-2 blur-xl rounded-full transition-all duration-500"></div>
+                  
+                  {/* Icon */}
+                  <div className="relative bg-background border-2 border-accent/10 p-4 rounded-2xl
+                    transform group-hover:scale-110 group-hover:border-accent/20 
+                    transition-all duration-500 shadow-lg">
+                    <svg className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      {info.icon.props.children}
+                    </svg>
                   </div>
                 </div>
-              </section>
-              <form className="bg-white/10 p-8 w-full rtl text-right rounded-3xl shadow-md mb-5 border border-accent">
-                <h2 className="text-3xl mb-6 font-IranYekan font-extrabold text-accent">
-                  تماس با ما
-                </h2>
-                <p className="direction-rtl text-right my-5 font-IranYekan text-sm text-accentDark/70">
-                  اگر سوالی داشتید یا کمکی نیاز داشتید میتوانید از طریق راه های
-                  ارتباطی زیر و یا از طریق فرم زیر با ما در ارتباط باشید.
-                </p>
 
-                {/* First Name */}
-                <div className="mb-4">
-                  <label
-                    className="block font-IranYekan font-bold text-accentDark text-sm mb-2"
-                    htmlFor="first-name"
-                  >
-                    نام
-                  </label>
-                  <input
-                    id="first-name"
-                    name="first-name"
-                    type="text"
-                    placeholder="نام خود را وارد کنید"
-                    className="w-full p-2 border-b border-accent/50 font-IranYekan bg-transparent direction-rtl placeholder:text-accent/80 placeholder:text-sm focus:outline-none"
-                  />
+                {/* Text Content */}
+                <div className="space-y-3">
+                  <h3 className="text-accent font-IranYekan font-bold text-lg
+                    group-hover:scale-105 transition-transform duration-500">
+                    {info.title}
+                  </h3>
+                  <div className="h-px w-12 bg-accent/20 mx-auto transform origin-left
+                    group-hover:w-24 transition-all duration-500"></div>
+                  <p className="text-gray-600 font-IranYekan text-base leading-relaxed
+                    max-w-[280px] mx-auto">
+                    {info.value}
+                  </p>
                 </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-                {/* Last Name */}
-                <div className="mb-4">
-                  <label
-                    className="block font-IranYekan font-bold text-accentDark text-sm mb-2"
-                    htmlFor="last-name"
-                  >
-                    نام خانوادگی
-                  </label>
-                  <input
-                    id="last-name"
-                    name="last-name"
-                    type="text"
-                    placeholder="نام خانوادگی خود را وارد کنید"
-                    className="w-full p-2 border-b border-accent/50 font-IranYekan bg-transparent direction-rtl placeholder:text-accent/80 placeholder:text-sm focus:outline-none"
-                  />
+        <div className="max-w-2xl mx-auto pb-16">
+          {/* Form Section */}
+          <div className="bg-background border-2 border-accent/20 rounded-3xl p-8 shadow-lg">
+            <h2 className="text-3xl font-extrabold text-accent font-IranYekan mb-8 text-center">
+              ارسال پیام
+            </h2>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name Input */}
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-accent font-IranYekan mb-2">
+                  نام و نام خانوادگی
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl bg-background border-2 border-accent/20 
+                    text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-accent/20 focus:border-accent transition-all duration-300 
+                    font-IranYekan text-right hover:border-accent/40"
+                  placeholder="نام و نام خانوادگی خود را وارد کنید"
+                />
+              </div>
+
+              {/* Email Input */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-accent font-IranYekan mb-2">
+                  ایمیل
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl bg-background border-2 border-accent/20 
+                    text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-accent/20 focus:border-accent transition-all duration-300 
+                    font-IranYekan text-right hover:border-accent/40"
+                  placeholder="ایمیل خود را وارد کنید"
+                />
+              </div>
+
+              {/* Message Input */}
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-accent font-IranYekan mb-2">
+                  پیام
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows="6"
+                  className="w-full px-4 py-3 rounded-xl bg-background border-2 border-accent/20 
+                    text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-accent/20 focus:border-accent transition-all duration-300 
+                    font-IranYekan text-right hover:border-accent/40 resize-none"
+                  placeholder="پیام خود را وارد کنید"
+                />
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="rounded-xl bg-red-50 p-4 border border-red-100">
+                  <p className="text-red-600 text-sm font-IranYekan text-right">
+                    {error}
+                  </p>
                 </div>
+              )}
 
-                {/* Email */}
-                <div className="mb-4">
-                  <label
-                    className="block font-IranYekan font-bold text-accentDark text-sm mb-2"
-                    htmlFor="email"
-                  >
-                    ایمیل
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="ایمیل خود را وارد کنید"
-                    className="w-full p-2 border-b border-accent/50 font-IranYekan bg-transparent direction-rtl placeholder:text-accent/80 placeholder:text-sm focus:outline-none"
-                  />
+              {/* Success Message */}
+              {success && (
+                <div className="rounded-xl bg-green-50 p-4 border border-green-100">
+                  <p className="text-green-600 text-sm font-IranYekan text-right">
+                    پیام شما با موفقیت ارسال شد
+                  </p>
                 </div>
+              )}
 
-                {/* Phone Number */}
-                <div className="mb-4">
-                  <label
-                    className="block font-IranYekan font-bold text-accentDark text-sm mb-2"
-                    htmlFor="phone-number"
-                  >
-                    شماره تلفن
-                  </label>
-                  <input
-                    id="phone-number"
-                    name="phone-number"
-                    type="tel"
-                    placeholder="شماره تلفن خود را وارد کنید"
-                    className="w-full p-2 border-b border-accent/50 font-IranYekan bg-transparent direction-rtl placeholder:text-accent/80 placeholder:text-sm focus:outline-none"
-                  />
-                </div>
-
-                {/* Message */}
-                <div className="mb-4">
-                  <label
-                    className="block font-IranYekan font-bold text-accentDark text-sm mb-2"
-                    htmlFor="message"
-                  >
-                    پیام
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="پیام خود را وارد کنید"
-                    className="w-full p-2 border-b border-accent/50 font-IranYekan bg-transparent direction-rtl placeholder:text-accent/80 placeholder:text-sm resize-none focus:outline-none"
-                  ></textarea>
-                </div>
-
-                {/* Submit Button */}
+              {/* Submit Button */}
+              <div className="flex justify-end pt-4">
                 <button
                   type="submit"
-                  className="font-IranYekan font-semibold bg-back-gradient text-accentLight py-2 px-6 rounded-2xl hover:bg-gray-800 transition-colors w-full"
+                  disabled={loading}
+                  className="bg-accent/10 text-accent px-8 py-3 rounded-xl 
+                    font-medium border-2 border-accent/20 hover:bg-accent/20 transition-all 
+                    duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed 
+                    font-IranYekan text-sm group relative overflow-hidden"
                 >
-                  ارسال
+                  <span className="relative z-10">
+                    {loading ? 'در حال ارسال...' : 'ارسال پیام'}
+                  </span>
                 </button>
-              </form>
-            
-            </div>
-          </main>
+              </div>
+            </form>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }
-
-export default Contact;
