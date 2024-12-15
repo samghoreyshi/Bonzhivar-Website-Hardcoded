@@ -3,6 +3,8 @@ import Link from "next/link";
 import Modal from "../components/modal";
 import ImageCarousel from "../components/ImageCarousel-Hero";
 import Announcements from "../components/Announcements";
+import ServicesSection from '@/components/ServicesSection';
+import PathFinderSection from "@/components/PathFinderSection";
 
 import AboutusFacade from "/public/Hero-images/Aboutus-facade-Sepia.webp";
 import Recon from "/public/Hero-images/Right-Cover-2.webp";
@@ -69,156 +71,9 @@ export default function Home() {
         </ImageCarousel>
       </section>
 
+      {/* <PathFinderSection /> */}
+      <ServicesSection />
 
-      {/* 
-    <section className="flex w-full h-[calc(70vh-4rem)] bg-background ">
-      <div className="w-full h-full bg-gray-200 flex flex-col items-end justify-center bg-[url(/Hero-images/banner.webp)] bg-center bg-cover bg-no-repeat  font-IranYekan gap-5 px-5 sm:px-10">
-        <h2 className="text-accentLight text-4xl text-right font-extrabold  sm:text-5xl">
-          مجتمع آموزشی بُن‌ژیوار
-        </h2>
-        <p className="hidden text-accentLight text-sm px-2 direction-rtl w-1/3 sm:text-base sm:block ">
-          مجتمع آموزشی بن‌ژیوار با هدف توسعه مهارت‌های کاربردی و آماده‌سازی
-          حرفه‌ای افراد برای ورود به بازار کار، دوره‌های متنوعی را در
-          حوزه‌هایی همچون معماری داخلی، طراحی، مدیریت کسب‌وکار و مهارت‌های
-          کافی‌شاپ ارائه می‌دهد. این مجتمع به عنوان یکی از مراکز پیشرو در
-          زمینه آموزش‌های مهارتی شناخته شده و با تکیه بر کیفیت آموزشی خود،
-          موفق به دریافت جوایز متعددی نظیر آموزشگاه برتر کشور و کارآفرین برتر
-          شده است. بن‌ژیوار با تمرکز بر نیازهای بازار کار، مسیر موفقیت شغلی را
-          برای فراگیران هموار می‌سازد.
-        </p>
-      </div>
-    </section> */}
-
-      <section>
-        <div className="w-full px-4 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-12 bg-background">
-          <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16 h-full">
-            <div className="mx-auto w-full h-full flex flex-col justify-center text-right ltr:lg:text-left rtl:lg:text-right px-6 py-6 bg-[url(/Hero-images/banner-1.webp)] bg-contain bg-no-repeat bg-left">
-              <h2 className="text-3xl sm:text-5xl text-accent font-IranYekan font-extrabold ">
-                !مسیر خودتو پیدا کن
-              </h2>
-              <p className="mt-6 text-accentDark font-IranYekan font-normal text-justify text-sm sm:text-base direction-rtl bg-background/10 backdrop-blur-sm p-2">
-                آیا به دنبال شغلی هستی که با عشق و علاقه آن را دنبال کنی؟
-                <span className="text-accent font-bold">
-                  {" "}
-                  در مجتمع آموزشی بن‌ژیوار{" "}
-                </span>
-                ، ما به شما کمک می‌کنیم تا مسیر خود را در زمینه‌های مختلف مانند{" "}
-                <span className="font-bold">معماری داخلی</span>،{" "}
-                <span className="font-bold">توسعه فردی</span>،{" "}
-                <span className="font-bold">کسب‌وکار</span> و{" "}
-                <span className="font-bold">کافه‌ و رستوران</span> پیدا کنید. با
-                آموزش‌های تخصصی و راهنمایی‌های حرفه‌ای، آینده‌ای روشن و شغلی
-                پرانرژی را برای خود بساز!
-              </p>
-              {/* <img className="w-full h-[435px] object-cover rounded-xl" src="/Hero-images/banner-1.webp" alt="" /> */}
-            </div>
-            <div className="grid grid-cols-2 gap-4 ">
-              <div className="block rounded-xl border border-accent/50 p-4 shadow-sm hover:border-accent hover:ring-1 hover:ring-accent focus:outline-none focus:ring transition-all duration-300 ease-in-out">
-                <div className="flex flex-col items-end cursor-pointer">
-                  <span className="inline-block rounded-lg bg-accent/10 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 512 512"
-                      height={20}
-                      fill="#4F9A85"
-                    >
-                      <path d="M512 80c0 18-14.3 34.6-38.4 48c-29.1 16.1-72.5 27.5-122.3 30.9c-3.7-1.8-7.4-3.5-11.3-5C300.6 137.4 248.2 128 192 128c-8.3 0-16.4 .2-24.5 .6l-1.1-.6C142.3 114.6 128 98 128 80c0-44.2 86-80 192-80S512 35.8 512 80zM160.7 161.1c10.2-.7 20.7-1.1 31.3-1.1c62.2 0 117.4 12.3 152.5 31.4C369.3 204.9 384 221.7 384 240c0 4-.7 7.9-2.1 11.7c-4.6 13.2-17 25.3-35 35.5c0 0 0 0 0 0c-.1 .1-.3 .1-.4 .2c0 0 0 0 0 0s0 0 0 0c-.3 .2-.6 .3-.9 .5c-35 19.4-90.8 32-153.6 32c-59.6 0-112.9-11.3-148.2-29.1c-1.9-.9-3.7-1.9-5.5-2.9C14.3 274.6 0 258 0 240c0-34.8 53.4-64.5 128-75.4c10.5-1.5 21.4-2.7 32.7-3.5zM416 240c0-21.9-10.6-39.9-24.1-53.4c28.3-4.4 54.2-11.4 76.2-20.5c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 19.3-16.5 37.1-43.8 50.9c-14.6 7.4-32.4 13.7-52.4 18.5c.1-1.8 .2-3.5 .2-5.3zm-32 96c0 18-14.3 34.6-38.4 48c-1.8 1-3.6 1.9-5.5 2.9C304.9 404.7 251.6 416 192 416c-62.8 0-118.6-12.6-153.6-32C14.3 370.6 0 354 0 336l0-35.4c12.5 10.3 27.6 18.7 43.9 25.5C83.4 342.6 135.8 352 192 352s108.6-9.4 148.1-25.9c7.8-3.2 15.3-6.9 22.4-10.9c6.1-3.4 11.8-7.2 17.2-11.2c1.5-1.1 2.9-2.3 4.3-3.4l0 3.4 0 5.7 0 26.3zm32 0l0-32 0-25.9c19-4.2 36.5-9.5 52.1-16c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 10.5-5 21-14.9 30.9c-16.3 16.3-45 29.7-81.3 38.4c.1-1.7 .2-3.5 .2-5.3zM192 448c56.2 0 108.6-9.4 148.1-25.9c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 44.2-86 80-192 80S0 476.2 0 432l0-35.4c12.5 10.3 27.6 18.7 43.9 25.5C83.4 438.6 135.8 448 192 448z" />
-                    </svg>
-                  </span>
-
-                  <h2 className="mt-2 font-bold text-accentDark text-right font-IranYekan">
-                    معماری داخلی
-                  </h2>
-
-                  <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-accent text-right font-IranYekan direction-rtl">
-                    در دوره‌های معماری داخلی مجتمع آموزشی بن‌ژیوار، مهارت‌های
-                    اساسی و پیشرفته برای طراحی و اجرای پروژه‌های معماری داخلی و
-                    خارجی به شما آموزش داده می‌شود.
-                  </p>
-                </div>
-              </div>
-              <div className="block rounded-xl border border-accent/50 p-4 shadow-sm hover:border-accent hover:ring-1 hover:ring-accent focus:outline-none focus:ring transition-all duration-300 ease-in-out">
-                <div className="flex flex-col items-end cursor-pointer">
-                  <span className="inline-block rounded-lg bg-accent/10 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 512 512"
-                      height={20}
-                      fill="#4F9A85"
-                    >
-                      <path d="M512 80c0 18-14.3 34.6-38.4 48c-29.1 16.1-72.5 27.5-122.3 30.9c-3.7-1.8-7.4-3.5-11.3-5C300.6 137.4 248.2 128 192 128c-8.3 0-16.4 .2-24.5 .6l-1.1-.6C142.3 114.6 128 98 128 80c0-44.2 86-80 192-80S512 35.8 512 80zM160.7 161.1c10.2-.7 20.7-1.1 31.3-1.1c62.2 0 117.4 12.3 152.5 31.4C369.3 204.9 384 221.7 384 240c0 4-.7 7.9-2.1 11.7c-4.6 13.2-17 25.3-35 35.5c0 0 0 0 0 0c-.1 .1-.3 .1-.4 .2c0 0 0 0 0 0s0 0 0 0c-.3 .2-.6 .3-.9 .5c-35 19.4-90.8 32-153.6 32c-59.6 0-112.9-11.3-148.2-29.1c-1.9-.9-3.7-1.9-5.5-2.9C14.3 274.6 0 258 0 240c0-34.8 53.4-64.5 128-75.4c10.5-1.5 21.4-2.7 32.7-3.5zM416 240c0-21.9-10.6-39.9-24.1-53.4c28.3-4.4 54.2-11.4 76.2-20.5c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 19.3-16.5 37.1-43.8 50.9c-14.6 7.4-32.4 13.7-52.4 18.5c.1-1.8 .2-3.5 .2-5.3zm-32 96c0 18-14.3 34.6-38.4 48c-1.8 1-3.6 1.9-5.5 2.9C304.9 404.7 251.6 416 192 416c-62.8 0-118.6-12.6-153.6-32C14.3 370.6 0 354 0 336l0-35.4c12.5 10.3 27.6 18.7 43.9 25.5C83.4 342.6 135.8 352 192 352s108.6-9.4 148.1-25.9c7.8-3.2 15.3-6.9 22.4-10.9c6.1-3.4 11.8-7.2 17.2-11.2c1.5-1.1 2.9-2.3 4.3-3.4l0 3.4 0 5.7 0 26.3zm32 0l0-32 0-25.9c19-4.2 36.5-9.5 52.1-16c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 10.5-5 21-14.9 30.9c-16.3 16.3-45 29.7-81.3 38.4c.1-1.7 .2-3.5 .2-5.3zM192 448c56.2 0 108.6-9.4 148.1-25.9c16.3-6.8 31.5-15.2 43.9-25.5l0 35.4c0 44.2-86 80-192 80S0 476.2 0 432l0-35.4c12.5 10.3 27.6 18.7 43.9 25.5C83.4 438.6 135.8 448 192 448z" />
-                    </svg>
-                  </span>
-
-                  <h2 className="mt-2 font-bold text-accentDark text-right font-IranYekan">
-                    کسب و کار
-                  </h2>
-
-                  <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-accent text-right font-IranYekan direction-rtl">
-                    در دوره‌های کسب و کار مجتمع آموزشی بن‌ژیوار، شما می‌توانید
-                    با اصول و مهارت‌های مورد نیاز برای راه‌اندازی، توسعه و
-                    مدیریت موفق یک کسب‌وکار آشنا شوید.
-                  </p>
-                </div>
-              </div>
-              <div className="block rounded-xl border border-accent/50 p-4 shadow-sm hover:border-accent hover:ring-1 hover:ring-accent focus:outline-none focus:ring transition-all duration-300 ease-in-out">
-                <div className="flex flex-col items-end cursor-pointer">
-                  <span className="inline-block rounded-lg bg-accent/10 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 512 512"
-                      height={20}
-                      fill="#4F9A85"
-                    >
-                      <path d="M208 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-223.1-28.6 47.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6l29.7 0c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L328 256.9 328 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0zM7 7C16.4-2.3 31.6-2.3 41 7l80 80c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L7 41C-2.3 31.6-2.3 16.4 7 7zM471 7c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-80 80c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L471 7zM7 505c-9.4-9.4-9.4-24.6 0-33.9l80-80c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L41 505c-9.4 9.4-24.6 9.4-33.9 0zm464 0l-80 80c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0z" />
-                    </svg>
-                  </span>
-
-                  <h2 className="mt-2 font-bold text-accentDark text-right font-IranYekan">
-                    توسعه فردی
-                  </h2>
-
-                  <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-accent text-right font-IranYekan direction-rtl">
-                    در مجتمع آموزشی بن‌ژیوار، ما به اهمیت توسعه فردی به عنوان
-                    یکی از کلیدی‌ترین عوامل موفقیت در زندگی شخصی و حرفه‌ای باور
-                    داریم. این مفهوم شامل بهبود مداوم مهارت‌ها، تقویت
-                    توانایی‌های فردی و افزایش اعتماد به نفس است تا شما بتوانید
-                    به بهترین نسخه از خود تبدیل شوید.
-                  </p>
-                </div>
-              </div>
-              <div className="block rounded-xl border border-accent/50 p-4 shadow-sm hover:border-accent hover:ring-1 hover:ring-accent focus:outline-none focus:ring transition-all duration-300 ease-in-out">
-                <div className="flex flex-col items-end cursor-pointer">
-                  <span className="inline-block rounded-lg bg-accent/10 p-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 640 512"
-                      height={20}
-                      fill="#4F9A85"
-                    >
-                      <path d="M96 64c0-17.7 14.3-32 32-32l320 0 64 0c70.7 0 128 57.3 128 128s-57.3 128-128 128l-32 0c0 53-43 96-96 96l-192 0c-53 0-96-43-96-96L96 64zM480 224l32 0c35.3 0 64-28.7 64-64s-28.7-64-64-64l-32 0 0 128zM32 416l512 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 480c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
-                    </svg>
-                  </span>
-
-                  <h2 className="mt-2 font-bold text-accentDark text-right font-IranYekan">
-                    کافه و رستوران
-                  </h2>
-
-                  <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-accent text-right font-IranYekan direction-rtl">
-                    اگر علاقه‌مند به دنیای پرجنب‌وجوش کافه‌ها و رستوران‌ها هستید
-                    و رویای راه‌اندازی کسب‌وکار خود را دارید، دوره‌های تخصصی
-                    کافه و رستوران بن‌ژیوار دقیقا همان چیزی است که نیاز دارید!
-                    این دوره‌ها تمامی مراحل از ایده‌پردازی تا اجرای موفق یک کافه
-                    یا رستوران را به شما آموزش می‌دهند.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
       {/* Announcements Section */}
       <section className="relative bg-background overflow-hidden">
         <div className="container mx-auto relative">
@@ -407,6 +262,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
       <section className="bg-background">
         <div className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
