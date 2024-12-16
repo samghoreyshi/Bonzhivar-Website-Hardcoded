@@ -1,24 +1,12 @@
 "use client";
-import { motion } from "framer-motion";
+import React from "react";
 
 const SectionTitle = ({ title, subtitle }) => (
   <div className="text-center mb-12">
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="relative inline-block"
-    >
+    <div className="relative inline-block">
       <h2 className="text-4xl md:text-5xl font-[800] text-accent mb-4 font-IranYekan">{title}</h2>
-      <motion.div
-        initial={{ width: 0 }}
-        whileInView={{ width: "100%" }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent bottom-0 left-0"
-      />
-    </motion.div>
+      <div className="absolute h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent bottom-0 left-0" />
+    </div>
     <p className="text-accentDark/80 mt-4 text-lg font-IranYekan max-w-3xl mx-auto">{subtitle}</p>
   </div>
 );
@@ -71,43 +59,17 @@ const services = [
 const ServicesSection = () => {
   return (
     <section className="relative py-24 bg-background overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute w-full h-full bg-[url('/patterns/grid.svg')] bg-repeat opacity-10"></div>
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, 45, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-accent/10 via-accent/5 to-transparent rounded-full blur-3xl"
-        />
-      </div>
-
       <div className="container mx-auto px-4 relative direction-rtl">
         <SectionTitle
           title="مسیر خودتو پیدا کن!"
           subtitle="آیا به دنبال شغلی هستی که با عشق و علاقه آن را دنبال کنی؟ در مجتمع آموزشی بن‌ژیوار، ما به شما کمک می‌کنیم تا مسیر خود را در زمینه‌های مختلف مانند معماری داخلی، توسعه فردی، کسب‌وکار و کافه و رستوران پیدا کنید. با آموزش‌های تخصصی و راهنمایی‌های حرفه‌ای، آینده‌ای روشن و شغلی پرانرژی را برای خود بسازید!"
         />
 
-        {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
           {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative"
-            >
+            <div key={service.title} className="group relative">
               <div className="relative h-full overflow-hidden rounded-3xl bg-accent/5 border border-accent/10 backdrop-blur-sm">
                 <div className="flex flex-row-reverse h-full">
-                  {/* Image Section */}
                   <div className="w-1/3 relative overflow-hidden">
                     <img
                       src={service.imagePath}
@@ -116,9 +78,7 @@ const ServicesSection = () => {
                     />
                   </div>
 
-                  {/* Content Section */}
                   <div className="w-2/3 p-6">
-                    {/* Top Section */}
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-2xl font-[600] text-accent font-IranYekan">
                         {service.title}
@@ -128,13 +88,11 @@ const ServicesSection = () => {
                       </div>
                     </div>
 
-                    {/* Description */}
                     <div className="space-y-4">
                       <p className="text-accentDark text-right font-IranYekan leading-relaxed">
                         {service.description}
                       </p>
 
-                      {/* Read More Button */}
                       <div className="flex justify-end pt-4">
                         <button className="text-accent text-sm font-IranYekan bg-accent/10 px-6 py-2.5 rounded-xl backdrop-blur-sm border border-accent/20 transition-all duration-300 hover:bg-accent/20">
                           مشاهده دوره‌ها
@@ -144,11 +102,10 @@ const ServicesSection = () => {
                   </div>
                 </div>
 
-                {/* Decorative Elements */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20"></div>
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20"></div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from 'next/link';
 
 const Announcements = () => {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [bookmarked, setBookmarked] = useState({});
 
   const announcements = [
     {
@@ -14,6 +16,7 @@ const Announcements = () => {
       category: "آموزشی",
       description: "دوره جدید کافه من با تدریس استاد علی محمدی از تاریخ ۱ دی ماه آغاز خواهد شد. برای ثبت نام و کسب اطلاعات بیشتر با ما در تماس باشید.",
       imagePath: "/events/cafe-course.webp",
+      status: "Upcoming",
     },
     {
       id: 2,
@@ -22,6 +25,7 @@ const Announcements = () => {
       category: "کارگاه",
       description: "کارگاه یک روزه کسب و کار با موضوع راه اندازی کسب و کار نوپا در تاریخ ۵ دی ماه برگزار خواهد شد. ظرفیت محدود.",
       imagePath: "/events/business-workshop.webp",
+      status: "Ongoing",
     },
     {
       id: 3,
@@ -30,8 +34,16 @@ const Announcements = () => {
       category: "آموزشی",
       description: "دوره جامع طراحی داخلی از مقدماتی تا پیشرفته با مدرک معتبر از تاریخ ۱۰ دی ماه شروع می‌شود.",
       imagePath: "/events/interior-design.webp",
+      status: "Completed",
     },
   ];
+
+  const toggleBookmark = (id) => {
+    setBookmarked((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   return (
     <section className="relative py-16 overflow-hidden">
@@ -87,44 +99,44 @@ const Announcements = () => {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
               onClick={() => setSelectedAnnouncement(announcement)}
-              className="group cursor-pointer"
+              className="group cursor-pointer shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col"
             >
-              <div className="relative rounded-2xl overflow-hidden border border-accent/10 backdrop-blur-sm">
-                {/* Top Bar */}
-                <div className="h-1 w-full bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20"></div>
-
-                {/* Content */}
-                <div className="p-6">
+              <img src={announcement.imagePath} alt={announcement.title} className="w-full h-48 object-cover" />
+              <div className="p-4 bg-[#f9f7f1] flex-grow flex flex-col">
+                {/* Flex container for Category and Status Tags */}
+                <div className="flex items-center space-x-2 mb-2">
                   {/* Category Badge */}
-                  <span className="inline-block px-3 py-1 rounded-full text-sm font-IranYekan text-accent/90 bg-accent/5 mb-4">
+                  <span className="inline-block px-2 py-1 text-xs font-IranYekan text-accent/90 bg-accent/5 rounded-full">
                     {announcement.category}
                   </span>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-IranYekan text-accent font-[600] mb-2 direction-rtl">
-                    {announcement.title}
-                  </h3>
-
-                  {/* Date */}
-                  <p className="text-sm text-accentDark/70 font-IranYekan mb-4 direction-rtl">
-                    {announcement.date}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-accentDark font-IranYekan text-right leading-relaxed line-clamp-3 direction-rtl">
-                    {announcement.description}
-                  </p>
-
-                  {/* Read More Button */}
-                  <div className="mt-4 flex justify-end">
-                    <button className=" direction-rtl text-sm text-accent/80 hover:text-accent font-IranYekan transition-colors duration-200">
-                      بیشتر بخوانید
-                    </button>
-                  </div>
+                  {/* Status Tag */}
+                  <span className={`inline-block px-2 py-1 text-xs font-IranYekan text-white rounded-full ${announcement.status === 'Upcoming' ? 'bg-accent' : announcement.status === 'Ongoing' ? 'bg-accent' : 'bg-accent'}`}>
+                    {announcement.status === 'Upcoming' ? 'در حال برگزاری' : announcement.status === 'Ongoing' ? 'در حال حاضر' : 'تکمیل شده'}
+                  </span>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="h-1 w-full bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20"></div>
+                {/* Title */}
+                <h3 className="text-xl font-IranYekan text-accent font-[600] mb-1 direction-rtl">
+                  {announcement.title}
+                </h3>
+
+                {/* Date */}
+                <p className="text-sm text-accentDark/70 font-IranYekan mb-2 direction-rtl">
+                  {announcement.date}
+                </p>
+
+                {/* Description */}
+                <p className="text-accentDark font-IranYekan text-right leading-relaxed line-clamp-3 direction-rtl mb-auto">
+                  {announcement.description}
+                </p>
+
+                {/* Read More Button */}
+                <div className="mt-4">
+                  <button className="w-full py-2 bg-accent text-white rounded-lg hover:bg-accent/80 transition duration-200">
+                    بیشتر بخوانید
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -146,10 +158,12 @@ const Announcements = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-background rounded-2xl overflow-hidden max-w-2xl w-full"
+              className="relative bg-background rounded-2xl overflow-hidden max-w-lg w-full h-[80vh] flex flex-col"
             >
               {/* Modal Content */}
-              <div className="p-6">
+              <div className="p-6 flex-grow overflow-y-auto">
+                <img src={selectedAnnouncement.imagePath} alt={selectedAnnouncement.title} className="w-full h-48 object-cover mb-4 rounded-lg" />
+                
                 <div className="flex justify-between items-start mb-4">
                   <button
                     onClick={() => setSelectedAnnouncement(null)}
@@ -175,13 +189,27 @@ const Announcements = () => {
                     {selectedAnnouncement.description}
                   </p>
                 </div>
+              </div>
 
-                {/* Contact Button */}
-                <div className="mt-6 flex justify-end">
-                  <button className="px-6 py-2 bg-accent/10 hover:bg-accent/15 text-accent rounded-lg font-IranYekan transition-colors duration-200">
+              {/* Action Buttons */}
+              <div className="flex justify-between items-center p-4 border-t">
+                <Link href="/contact">
+                  <button className="px-4 py-2 sm:px-6 sm:py-2 bg-accent/10 hover:bg-accent/15 text-accent rounded-lg font-IranYekan transition-colors duration-200 text-sm sm:text-base">
                     تماس با ما
                   </button>
-                </div>
+                </Link>
+                <button
+                  onClick={() => {
+                    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(selectedAnnouncement.title + ' - مجتمع مهارت آموزی بن‌ژیوار')}`;
+                    window.open(telegramUrl, '_blank');
+                  }}
+                  className="px-4 py-2 sm:px-6 sm:py-2 bg-accent/10 hover:bg-accent/15 text-accent rounded-lg font-IranYekan transition-colors duration-200 flex items-center text-sm sm:text-base"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2 2 4-4 2 2 4-4 2 2-6 6-2-2-4 4-2-2z" />
+                  </svg>
+                  اشتراک گذاری در تلگرام
+                </button>
               </div>
             </motion.div>
           </motion.div>
