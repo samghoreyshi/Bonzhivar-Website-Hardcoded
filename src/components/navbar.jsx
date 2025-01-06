@@ -166,14 +166,14 @@ function Navbar() {
               viewBox="0 0 512 512"
               height={15}
               onClick={toggleDropdown}
-              fill="#4F9A85"
+              fill="#1DAFBE"
             >
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
             </svg>
             <span onClick={toggleDropdown}>دوره های آموزشی</span>
             <div
               id="dropdown"
-              className={`absolute cursor-default left-0 top-11 -translate-x-1/2 w-[1150px] rounded-tr-none rounded-tl-none rounded-3xl h-64 bg-[url('/Backgrounds/Drop-grid.webp')] bg-cover bg-center overflow-hidden  shadow-lg p-4 transition-all duration-300 ease-in-out ${
+              className={`absolute cursor-default left-0 top-11 -translate-x-1/2 w-[1150px] rounded-tr-none rounded-tl-none rounded-3xl h-64 bg-background overflow-hidden  shadow-lg p-4 transition-all duration-300 ease-in-out ${
                 isOpen
                   ? "opacity-100 max-h-64 z-[100] visible"
                   : "opacity-0 max-h-0 invisible overflow-hidden"

@@ -15,15 +15,15 @@ export default {
         Gold: ["Gold", "sans-serif"],
       },
       backgroundImage: {
-        "back-gradient": "linear-gradient(90deg, #2B6F5D 0%, #4F9A85 100%)",
+        "back-gradient": "linear-gradient(90deg, #1DAFBE 0%, #1DAFBE 100%)",
       },
       colors: {
-        background: "#F8F3E9",
+        background: "#FAF9F7",
         primary: "#1D4ED8",
         secondary: "#9333EA",
-        accent: "#4F9A85",
+        accent: "#1DAFBE",
         accentLight: "#F4E8C9",
-        accentDark: "#052D1C",
+        accentDark: "#092C30",
       },
       animation: {
         'rainbow-border': 'rainbow 2s linear infinite',
@@ -52,7 +52,7 @@ export default {
       const newUtilities = {
         '.gradient-border-bottom': {
           'border-bottom': '2px solid transparent',
-          'border-image': 'linear-gradient(to right, transparent, #4F9A85, transparent) 1',
+          'border-image': 'linear-gradient(to right, transparent, #1DAFBE, transparent) 1',
         },
         '.direction-rtl': {
           direction: 'rtl',
