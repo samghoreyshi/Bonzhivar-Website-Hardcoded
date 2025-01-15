@@ -1,10 +1,12 @@
 "use client";
 
-
-
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const unify = (e) => {
+  return e.changedTouches ? e.changedTouches[0] : e;
+};
 
 const ImageCarousel = ({
   children: slides,
@@ -15,9 +17,11 @@ const ImageCarousel = ({
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
+  const [dragAmount, setDragAmount] = useState(0);
+  const [startPos, setStartPos] = useState(0);
+  const [dragStartTime, setDragStartTime] = useState(0);
   const carouselRef = useRef(null);
+  const slideTimeout = useRef(null);
 
   const goToSlide = useCallback(
     (index) => {
@@ -47,111 +51,117 @@ const ImageCarousel = ({
     setIsTransitioning(false);
   };
 
-  // Mouse drag handling
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.clientX);
-  };
+  const handleDragStart = useCallback(
+    (e) => {
+      setIsDragging(true);
+      setStartPos(unify(e).clientX);
+      setDragStartTime(Date.now());
+      clearTimeout(slideTimeout.current);
+    },
+    []
+  );
 
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    setDragOffset(e.clientX - startX);
-  };
+  const handleDragMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const currentX = unify(e).clientX;
+      const walk = currentX - startPos;
+      setDragAmount(walk);
+    },
+    [isDragging, startPos]
+  );
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    if (Math.abs(dragOffset) > 50) {
-      if (dragOffset < 0) {
-        next(); // Dragged left
-      } else {
-        prev(); // Dragged right
+  const handleDragEnd = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      
+      const dragTime = Date.now() - dragStartTime;
+      const dragDistance = Math.abs(dragAmount);
+      const quickSwipe = dragTime < 300 && dragDistance > 50;
+      const longSwipe = dragDistance > 100;
+
+      if (quickSwipe || longSwipe) {
+        if (dragAmount > 0) {
+          prev();
+        } else {
+          next();
+        }
       }
-    }
-    setDragOffset(0);
-  };
 
-  const handleMouseLeave = () => {
-    if (isDragging) {
-      handleMouseUp();
-    }
-  };
+      setIsDragging(false);
+      setDragAmount(0);
+      resetTimeout();
+    },
+    [isDragging, dragAmount, dragStartTime, next, prev]
+  );
 
-  // Touch handling for mobile devices
-  const handleTouchStart = (e) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].clientX);
-  };
+  const resetTimeout = useCallback(() => {
+    slideTimeout.current = setTimeout(next, autoSlideInterval);
+  }, [autoSlideInterval, next]);
 
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    setDragOffset(e.touches[0].clientX - startX);
-  };
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-    if (Math.abs(dragOffset) > 50) {
-      if (dragOffset < 0) {
-        next(); // Swiped left
-      } else {
-        prev(); // Swiped right
-      }
-    }
-    setDragOffset(0);
-  };
+    carousel.addEventListener('touchstart', handleDragStart, { passive: false });
+    carousel.addEventListener('touchmove', handleDragMove, { passive: false });
+    carousel.addEventListener('touchend', handleDragEnd);
+    carousel.addEventListener('mousedown', handleDragStart);
+    carousel.addEventListener('mousemove', handleDragMove);
+    carousel.addEventListener('mouseup', handleDragEnd);
+    carousel.addEventListener('mouseleave', handleDragEnd);
 
+    return () => {
+      carousel.removeEventListener('touchstart', handleDragStart);
+      carousel.removeEventListener('touchmove', handleDragMove);
+      carousel.removeEventListener('touchend', handleDragEnd);
+      carousel.removeEventListener('mousedown', handleDragStart);
+      carousel.removeEventListener('mousemove', handleDragMove);
+      carousel.removeEventListener('mouseup', handleDragEnd);
+      carousel.removeEventListener('mouseleave', handleDragEnd);
+    };
+  }, [handleDragStart, handleDragMove, handleDragEnd]);
+
+  const translateX = isDragging ? dragAmount : 0;
+  
   return (
     <div
-      className="overflow-hidden relative h-full"
       ref={carouselRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      style={{ cursor: isDragging ? "grabbing" : "grab" }}
+      className="relative overflow-hidden w-full h-full select-none"
+      style={{ touchAction: 'pan-y pinch-zoom' }}
     >
       <div
-        className="flex h-full transition-transform ease-out duration-300"
+        className="flex transition-transform duration-300 ease-out h-full"
         style={{
-          transform: `translateX(calc(-${current * 100}% + ${dragOffset}px))`,
+          transform: `translateX(calc(-${current * 100}% + ${translateX}px))`,
+          transition: isDragging ? 'none' : 'transform 300ms ease-out'
         }}
         onTransitionEnd={handleTransitionEnd}
       >
         {slides.map((slide, index) => (
-          <div key={index} className="w-full h-full flex-shrink-0">
+          <div key={index} className="w-full h-full flex-shrink-0 z-50">
             {slide}
           </div>
         ))}
       </div>
 
       {/* Current Slide Indicator */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center space-x-2 p-4">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-center space-x-4 p-6">
         {slides.map((_, index) => (
           <div
             key={index}
-            className={`w-2 h-2 rounded-sm ${
-              index === current ? "bg-background transition-all duration-300 ease-in-out w-6 " : "bg-background/50"
+            onClick={() => setCurrent(index)}
+            className={`w-3 h-3 rounded-md cursor-pointer hover:bg-background/80 ${
+              index === current
+                ? "bg-background  transition-all duration-300 ease-in-out w-8"
+                : "bg-background/90"
             }`}
           />
         ))}
       </div>
 
-      <div className="hidden absolute inset-0 sm:flex items-center justify-between p-4">
-        <button
-          onClick={prev}
-          className="p-1 rounded-lg shadow bg-accent/80 text-accentLight hover:bg-accent transition-all ease-in-out duration-300"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={next}
-          className="p-1 rounded-lg shadow bg-accent/80 text-accentLight hover:bg-accent transition-all ease-in-out duration-300"
-        >
-          <ChevronRight size={24} />
-        </button>
-      </div>
+     
     </div>
   );
 };

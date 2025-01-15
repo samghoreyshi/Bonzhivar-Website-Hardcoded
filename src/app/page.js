@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Modal from "../components/modal";
 import ImageCarousel from "../components/ImageCarousel-Hero";
+import LandingBanner from "@/components/LandingBanner";
 import Announcements from "../components/Announcements";
 import ServicesSection from '@/components/ServicesSection';
 import PathFinderSection from "@/components/PathFinderSection";
@@ -12,35 +13,19 @@ import Model from "/public/Hero-images/Right-Cover-3.webp";
 import Light from "/public/Hero-images/Right-Cover-4.webp";
 import Undercn from "/public//Undercn/1.webp";
 
-const slides = [
-  {
-    image: "/Hero-images/Slider/1.webp",
-    title: "Slide 4 Title",
-    description: "Description for slide 4",
-  },
-  {
-    image: "/Hero-images/Slider/2.webp",
-    title: "Slide 2 Title",
-    description: "Description for slide 2",
-  },
-  {
-    image: "/Hero-images/Slider/3.webp",
-    title: "Slide 3 Title",
-    description: "Description for slide 3",
-  },
-  {
-    image: "/Hero-images/Slider/4.webp",
-    title: "Slide 4 Title",
-    description: "Description for slide 4",
-  },
-  {
-    image: "/Hero-images/Slider/5.webp",
-    title: "Slide 4 Title",
-    description: "Description for slide 4",
-  },
-];
 
-export default function Home() {
+async function getSlides() {
+  const res = await fetch('https://dev.bonzhivar.com/api/slides?populate=*', { next: { revalidate: 10 } });
+  if (!res.ok) {
+    throw new Error('Failed to fetch slides');
+  }
+  return res.json();
+}
+
+
+
+export default async function Home() {
+
   const homeLink = "/";
   const reconLink = "/courses/reconstruction";
   const modelingLink = "/courses/modeling";
@@ -53,29 +38,16 @@ export default function Home() {
 
   return (
     <>
-      <section className="bg-background  w-full h-[300px] sm:h-[600px] flex justify-center items-center">
-        <ImageCarousel
-          autoSlide={true}
-          autoSlideInterval={12000}
-          titles={slides.map((slide) => slide.title)}
-        >
-          {slides.map((slide, index) => (
-            <div key={index} className="relative h-full w-full object-cover">
-              <img
-                src={slide.image}
-                className="w-full h-full object-cover object-center"
-                alt={slide.title}
-              />
-            </div>
-          ))}
-        </ImageCarousel>
+      <section id="imageCarousel" className="bg-background w-full h-[300px] sm:h-[600px] flex justify-center items-center">
+
+          <LandingBanner />
       </section>
 
       {/* <PathFinderSection /> */}
       <ServicesSection />
 
       {/* Announcements Section */}
-      <section className="relative bg-background overflow-hidden">
+      <section id="announcements" className="relative bg-background overflow-hidden">
         <div className="container mx-auto relative">
           <Announcements />
         </div>
@@ -136,8 +108,8 @@ export default function Home() {
                     درباره ما
                   </h3>
                 </Link>
-                <a
-                  href="#modal"
+                <Link
+                  href="/newses"
                   target="_self"
                   className="cursor-pointer group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40"
                 >
@@ -152,7 +124,7 @@ export default function Home() {
                   <h3 className="z-10 text-xl font-bold text-accentLight absolute top-0 right-0 p-2 xs:text-xl md:text-xl font-IranYekan text-right direction-rtl bg-accentDark/30 backdrop-blur-lg rounded-lg m-2">
                     اطلاعیه
                   </h3>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-span-2 sm:col-span-1 md:col-span-1 bg-background h-auto md:h-full flex flex-col">

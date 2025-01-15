@@ -2,25 +2,21 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import SearchBox from "./searchbox";
-import { Underline } from "react-feather";
+
+const routes = {
+  main: [
+    { path: '/contact', label: 'تماس با ما' },
+    { path: '/about', label: 'درباره ما' },
+    { path: '/newses', label: 'رویدادها' },
+    { path: '/blog', label: 'مقالات' },
+    { path: '/courses', label: 'دوره های آموزشی' },
+    { path: '/', label: 'خانه' }
+  ]
+};
 
 function Navbar() {
-  const homeLink = "/";
-  const reconLink = "/courses/reconstruction";
-  const modelingLink = "/courses/modeling";
-  const lightLink = "/courses/lighting";
-  const contactLink = "/contact";
-  const aboutLink = "/about";
-  const undercnLink = "/underconstruction";
-  const interiorArc = "/courses/interior-architecture";
-  const etiquette = "/courses/Etiquette";
-  const interiorDesign = "/courses/interior-design";
-  const colorApp = "/courses/color-app";
-
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -37,10 +33,6 @@ function Navbar() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const toggleAccordion = () => {
-    setIsAccordionOpen(!isAccordionOpen);
   };
 
   useEffect(() => {
@@ -73,24 +65,34 @@ function Navbar() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-    setIsAccordionOpen(false);
+  };
+
+  const renderMenuItem = (item) => {
+    return (
+      <li key={item.path} className="hover:text-accent transition-all duration-300 relative group">
+        <Link href={item.path} className="px-5 inline-block">
+          <span className="absolute -right-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-accent scale-0 group-hover:scale-100 transition-transform duration-300" />
+          {item.label}
+        </Link>
+      </li>
+    );
   };
 
   return (
     <nav
-      className={`sticky top-0 sm:px-5 z-50 font-IranYekan font-normal text-sm flex items-center justify-between bg-background sm:border-b gradient-border-bottom h-16 p-5 transition-all duration-300 ${
-        isScrolled ? "" : ""
-      }`}
+      className={`sticky top-0 z-50 font-IranYekan font-normal text-sm flex items-center justify-between bg-background sm:border-b gradient-border-bottom h-16 transition-all duration-300 ${isScrolled ? "" : ""
+        }`}
     >
-      <div className="flex items-center md:hidden">
+      {/* Mobile menu button */}
+      <div className="flex items-center md:hidden px-4">
         <button
           onClick={toggleMobileMenu}
-          className="inline-flex items-center justify-center  rounded-md text-accent hover:text-whitefocus:outline-none"
+          className="inline-flex items-center justify-center rounded-md text-accent hover:text-white focus:outline-none"
         >
           <span className="sr-only">Open main menu</span>
           {!isMobileMenuOpen ? (
             <svg
-              className="block h-8 w-8"
+              className="block h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -106,7 +108,7 @@ function Navbar() {
             </svg>
           ) : (
             <svg
-              className="block h-8 w-8"
+              className="block h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -123,187 +125,31 @@ function Navbar() {
           )}
         </button>
       </div>
-      <div className="flex justify-start gap-2 items-center w-[600px] h-full">
-        <SearchBox id="searchbox" className="md:hidden lg:block" />
-        <Link href={undercnLink} className="bg-accent px-5 py-1 rounded-lg text-white hover:bg-background hover:border-accent hover:border hover:text-accent tansition-all duration-300 ease-in-out">ثبت نام</Link>
+
+      {/* Desktop search and signup */}
+      <div className="hidden md:flex justify-start gap-2 items-center w-[600px] h-full px-5">
+        <a href="tel:02128111195" className="group flex items-center gap-3 px-4 py-2 bg-accent/5 hover:bg-accent rounded-xl transition-all duration-300">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent text-white group-hover:bg-white group-hover:text-accent transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+          </div>
+          <div className="flex flex-col items-end">
+            <span className="text-xs text-gray-500 group-hover:text-white transition-colors duration-300">تماس با ما</span>
+            <span className="font-bold text-gray-700 group-hover:text-white transition-colors duration-300" dir="ltr">۰۲۱-۲۸۱۱۱۱۹۵</span>
+          </div>
+        </a>
       </div>
 
-      <ul className="text-textDark hidden md:flex fixed top-0 left-1/2 transform -translate-x-1/2  justify-center items-center gap-2 py-3 px-3 mt-2 ">
-        {/* <li>
-          <div className=" invisible sm:visible text-[12px] gap-2 font-IranYekan font-normal flex items-center justify-center w-auto p-4 rounded-lg h-[3px] bg-[#e4f7f0] border border-[#aee0d2] text-accent">
-            <span>.وبسایت بن‌ژیوار در حال توسعه می‌باشد</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              fill="#4F9A85"
-              height={15}
-            >
-              <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
-            </svg>
-          </div>
-        </li> */}
-        <li className="hover:text-gray-500 transition-all duration-300">
-          <Link href={contactLink} className="px-5 inline-block">
-            تماس با ما
-          </Link>
-        </li>
-        <li className="hover:text-gray-500 transition-all duration-300">
-          <Link href={aboutLink} className="px-5 inline-block">
-            درباره ما
-          </Link>
-        </li>
-        <li className="hover:text-gray-500 transition-all duration-300">
-          <div
-            ref={dropdownRef}
-            id="nav-dropdown"
-            className="flex items-center justify-center gap-1 group cursor-pointer relative"
-          >
-            <svg
-              className={`transition-transform duration-300 ${
-                isOpen ? "rotate-180" : "rotate-0"
-              }`}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              height={15}
-              onClick={toggleDropdown}
-              fill="#1DAFBE"
-            >
-              <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-            </svg>
-            <span onClick={toggleDropdown}>دوره های آموزشی</span>
-            <div
-              id="dropdown"
-              className={`absolute cursor-default left-0 top-11 -translate-x-1/2 w-[1150px] rounded-tr-none rounded-tl-none rounded-3xl h-64 bg-background overflow-hidden  shadow-lg p-4 transition-all duration-300 ease-in-out ${
-                isOpen
-                  ? "opacity-100 max-h-64 z-[100] visible"
-                  : "opacity-0 max-h-0 invisible overflow-hidden"
-              }`}
-            >
-              <div className="flex h-full w-full items-center justify-between gap-2 ">
-                <div className="flex flex-col w-full h-full bg-[url('/Backgrounds/Drop-cover.webp')] bg-cover bg-center rounded-md"></div>
-                <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
-                  <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
-                    دوره های آموزشی کافی‌شاپ
-                  </span>
-                  <ul
-                    className="text-accent text-right text-xs leading-loose "
-                    onClick={closeDropdown}
-                  >
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>دوره آموزشی بار سرد و گرم</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>دوره آموزشی ویتری</Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
-                  <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
-                    دوره های آموزشی کسب و کار
-                  </span>
-                  <ul
-                    className="text-accent text-right text-xs leading-loose "
-                    onClick={closeDropdown}
-                  >
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>دوره جامع دیجیتال مارکتینگ</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>
-                        دوره اصول و فنون ارتباطات و مذاکرات تجاری
-                      </Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>دوره حقوق کسب و کار</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>
-                        مدیریت مالی برای مدیران غیر مالی
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
-                  <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
-                    کارگاه‌های توسعه فردی
-                  </span>
-                  <ul
-                    className="text-accent text-right text-xs leading-loose "
-                    onClick={closeDropdown}
-                  >
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={etiquette}>آداب معاشرت</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>مدیریت زمان و برنامه‌ریزی</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>
-                        مهارت‌های ارتباطی و مشتری‌مداری
-                      </Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>تفکر خلاق و حل مسئله</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>
-                        مدیریت استرس و تعادل کار و زندگی{" "}
-                      </Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>رهبری و مدیریت پروژه</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={undercnLink}>
-                        پرسونال برندینگ یا برند شخصی
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex flex-col justify-start items-end w-full h-full gap-2 ">
-                  <span className="font-bold font-IranYekan text-sm text-right border-b border-accent py-2 text-black hover:text-black">
-                    دوره های آموزشی معماری داخلی
-                  </span>
-                  <ul
-                    className="text-accent text-right text-xs leading-loose "
-                    onClick={closeDropdown}
-                  >
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={reconLink}>دوره جامع بازسازی ساختمان </Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={modelingLink}>مدلسازی و رندرینگ</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={lightLink}>دوره جامع نورپردازی</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={interiorArc}>دوره جامع معماری داخلی</Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={interiorDesign}>
-                        {" "}
-                        دوره جامع دکوراسیون داخلی
-                      </Link>
-                    </li>
-                    <li className="hover:text-black transition-all duration-300">
-                      <Link href={colorApp}>دوره جامع کاربرد رنگ</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li className="hover:text-gray-500 transition-all duration-300">
-          <Link href="/" className="px-5 inline-block">
-            خانه
-          </Link>
-        </li>
+      {/* Desktop menu */}
+      <ul className="text-textDark hidden md:flex fixed top-0 left-1/2 transform -translate-x-1/2 justify-center items-center gap-2 py-3 px-3 mt-2">
+        {routes.main.map((item) => renderMenuItem(item))}
       </ul>
-      <div>
+
+      {/* Logo */}
+      <div className="flex-shrink-0">
         <img
-          className="w-64 sm:w-28 mt-2 object-contain"
+          className="mx-5 h-10 md:h-10 w-auto object-contain"
           src="/Logo/Bonzhivar-Logo.png"
           alt="Logo-Bonzhivar"
         />
@@ -311,90 +157,23 @@ function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden absolute top-16 left-0 right-0 bg-background shadow-lg transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen
+        className={`md:hidden absolute top-16 left-0 right-0 bg-background shadow-lg transition-all duration-300 ease-in-out ${isMobileMenuOpen
             ? "max-h-screen opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
-        } ${isScrolled ? "bg-accentLight" : ""}`}
+          } ${isScrolled ? "bg-accentLight" : ""}`}
       >
         <ul className="flex flex-col items-center py-4">
-          <li className="w-full">
-            <Link
-              href={homeLink}
-              className="block px-5 py-2 text-right"
-              onClick={closeMobileMenu}
-            >
-              خانه
-            </Link>
-          </li>
-          <li className="w-full">
-            <button
-              onClick={toggleAccordion}
-              className="w-full px-5 py-2 text-center flex items-center justify-end gap-5"
-            >
-              <svg
-                className={`ml-1 transition-transform duration-300 ${
-                  isAccordionOpen ? "rotate-180" : "rotate-0"
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                height={15}
-                fill="#4F9A85"
+          {routes.main.slice().reverse().map((item) => (
+            <li key={item.path} className="w-full">
+              <Link
+                href={item.path}
+                className="block px-4 py-2 text-right"
+                onClick={closeMobileMenu}
               >
-                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-              </svg>
-              <span>دوره های آموزشی</span>
-            </button>
-            <div
-              className={`bg-background-100 overflow-hidden transition-all duration-300 ease-in-out ${
-                isAccordionOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <ul className="text-accent text-right px-5 py-2">
-                <li className="py-1 font-IranYekan font-bold text-lg ">
-                  <span onClick={closeMobileMenu}>
-                    دوره های آموزشی معماری داخلی
-                  </span>
-                </li>
-                <li className="py-1 font-IranYekan font-normal ">
-                  <Link onClick={closeMobileMenu} href={reconLink}>
-                    دوره جامع بازسازی ساختمان{" "}
-                  </Link>
-                </li>
-                <li className="py-1 font-IranYekan font-normal">
-                  <Link onClick={closeMobileMenu} href={modelingLink}>
-                    مدلسازی و رندرینگ
-                  </Link>
-                </li>
-                <li className="py-1 font-IranYekan font-normal">
-                  <Link onClick={closeMobileMenu} href={lightLink}>
-                    دوره جامع نورپردازی
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li className="w-full">
-            <Link
-              href={aboutLink}
-              className="block px-5 py-2 text-right"
-              onClick={closeMobileMenu}
-            >
-              درباره ما
-            </Link>
-          </li>
-          <li className="w-full">
-            <Link
-              href={contactLink}
-              className="block px-5 py-2 text-right"
-              onClick={closeMobileMenu}
-            >
-              تماس با ما
-            </Link>
-          </li>
-          <li className="w-full px-5 py-2">
-            <SearchBox />
-          </li>
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
